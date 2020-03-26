@@ -126,7 +126,7 @@ const Step2 = ({ projectId }) => {
 				{
 					mini.map((xcx, index) => {
 						return (
-							<Form.Item key={xcx.id + 'xcx'} label="starting ID" required hasFeedback name={['mini', index, 'id']}
+							<Form.Item key={'xcx' + index} label="starting ID" required hasFeedback name={['mini', index, 'id']}
 							rules={[{
 								required: true,
 								message: <span>
@@ -161,7 +161,7 @@ const Step2 = ({ projectId }) => {
 				{
 					mp.map((fwh, index) => {
 						return (
-							<Form.Item key={fwh.id + 'fwh'} label="客户跟进提醒ID" required>
+							<Form.Item key={'fwh' + index} label="客户跟进提醒ID" required>
 								<div>
 									<Form.Item noStyle name={['mp', index, 'id']}
 										rules={[{

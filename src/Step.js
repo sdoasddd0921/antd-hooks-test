@@ -3,20 +3,23 @@ import {Button,Form,Input} from 'antd'
 
 let id = 1
 
-export default () => {
-	const [list, setList] = useState([{id}])
+export default ({history}) => {
+	const [form] = Form.useForm()
+	const [list, setList] = useState([{}])
 	const add = () => {
-		setList(list.concat([{id: ++id}]))
+		setList([{id: ++id}, {
+			id: 'eeaasd'
+		}])
 	}
 	useEffect(() => {
 		setList([{id:3}])
 	}, [])
 	return (
-		<Form>
+		<Form form={form}>
 			{
 				list.map((item, index) => {
 					return (
-						<Form.Item required label="test label" key={index}>
+						<Form.Item required label="test label" key={index + 'xcx'}>
 							<div>
 								<Form.Item
 									noStyle
@@ -34,7 +37,10 @@ export default () => {
 					)
 				})
 			}
-			<Button type="primary" onClick={add}>add list</Button>
+			{/* <Button type="primary" onClick={add}>add list</Button> */}
+			<Button type="primary" onClick={() => {
+				history.push('/test')
+			}}>jump</Button>
 		</Form>
 	)
 }
