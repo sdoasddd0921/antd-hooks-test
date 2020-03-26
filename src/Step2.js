@@ -35,8 +35,8 @@ const Step2 = ({ projectId }) => {
 	const { validateFields, setFieldsValue } = form
 	const [loading, setLoading] = useState(false)
 	const [state, setState] = useState({
-		mp: [{}],
-		mini: [{}]
+		mp: [],
+		mini: []
 	})
 	console.log('aaaaaaaa', state)
 
@@ -78,8 +78,9 @@ const Step2 = ({ projectId }) => {
 			mini: [{}],
 			mp: [{}]
 		})
-		setState(a)
-		setFieldsValue(a)
+		validateFields()
+		// setState(a)
+		// setFieldsValue(a)
 	}
 
 	const handleJump = (type) => {
@@ -91,21 +92,25 @@ const Step2 = ({ projectId }) => {
 		getTemplate()
 		return () => console.log('clean up')
 	}, [getTemplate])
+
 	useEffect(() => {
-		validateFields()
-	}, [state])
+		// validateFields()
+		// setFieldsValue(state)
+	}, [state, setFieldsValue])
 
 	const Btn = () => {
 		return <Button onClick={() => {
 			const a = ({
 				mini:[{id: 'eeeeeeeeeeeeeeeeeeeeeeeeeeeee'}],
-				// mp: [{id: '1'}],
-				mp: [{}]
+				mp: [{id: '1'}],
+				// mp: [{}],
+				mmm: 'mmm'
 			})
 			setState(a)
 			setFieldsValue(a)
 		}}>test</Button>
 	}
+	const {mini, mp} = state
 
 	return (
 		<Form
@@ -119,11 +124,22 @@ const Step2 = ({ projectId }) => {
 			<Spin spinning={loading}>
 				<p className="l-title">some good things</p>
 				{
-					state.mini.map((xcx, index) => {
+					mini.map((xcx, index) => {
 						return (
-							<Form.Item key={xcx.id + 'xcx'} label="starting ID" required>
-								<div>
-									<Form.Item noStyle name={['mini', index, 'id']}
+							<Form.Item key={xcx.id + 'xcx'} label="starting ID" required hasFeedback name={['mini', index, 'id']}
+							rules={[{
+								required: true,
+								message: <span>
+									<span>
+										no scan IDs
+									</span>
+									<Button type='link' onClick={
+										() => handleJump('xcx')}
+									>立刻前往</Button>
+								</span>
+							}]}>
+								{/* <div> */}
+									{/* <Form.Item noStyle name={['mini', index, 'id']}
 										rules={[{
 											required: true,
 											message: <span>
@@ -135,18 +151,15 @@ const Step2 = ({ projectId }) => {
 												>立刻前往</Button>
 											</span>
 										}]}
-									>
+									> */}
 										<Input autoComplete="off" disabled/>
 									</Form.Item>
-									{icon(xcx.id)}
-								</div>
-							</Form.Item>
 						)
 					})
 				}
 				<p className="l-title">something configs</p>
 				{
-					state.mp.map((fwh, index) => {
+					mp.map((fwh, index) => {
 						return (
 							<Form.Item key={fwh.id + 'fwh'} label="客户跟进提醒ID" required>
 								<div>
